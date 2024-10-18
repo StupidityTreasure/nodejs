@@ -1,4 +1,4 @@
-import http from "http";
+/*import http from "http";
 import fs from "fs"
 import url from 'url';
 const myserver=http.createServer((req,res)=>{
@@ -26,3 +26,24 @@ const myserver=http.createServer((req,res)=>{
 });
 
 myserver.listen(8000,()=>console.log("server started"));
+*/
+
+//starting with expresss
+import http from "http"
+import express from "express"
+
+const app =express();
+
+app.get('/',(req,res)=>{
+    return res.send(`hello from home page`)
+})
+app.get('/about',(req,res)=>{
+    return res.send(`hello from about page  ${req.query.name}`)
+})
+
+app.listen(8000,()=>console.log(`server started`))
+/*
+const myserver=http.createServer(app)
+
+myserver.listen(8000,()=>console.log("server started"));
+*/
