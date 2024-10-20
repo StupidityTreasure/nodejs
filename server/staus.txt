@@ -1,0 +1,5 @@
+1-informational response
+2-succesfull response
+3-redirection response
+4-client error response
+5-server error response
