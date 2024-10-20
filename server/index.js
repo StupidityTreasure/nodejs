@@ -31,14 +31,38 @@ myserver.listen(8000,()=>console.log("server started"));
 //starting with expresss
 import http from "http"
 import express from "express"
+import fs from 'fs'
+import users from './MOCK_DATA.json' assert { type: 'json' };
+
 
 const app =express();
+//Mid
+app.use(express.urlencoded({extended:false}));
 
 app.get('/',(req,res)=>{
     return res.send(`hello from home page`)
 })
 app.get('/about',(req,res)=>{
     return res.send(`hello from about page  ${req.query.name}`)
+})
+
+
+app.post('/api/users',(req,res)=>{
+    const body=req.body;
+    users.push({...body,id: users.length+1});
+    fs.writeFile("./MOCK_DATA.json",JSON.stringify(users),(err,data)=>{
+        return res.json({status:"success",id:users.length})
+    })
+
+    
+})
+
+app.patch('/api/users',(req,res)=>{
+    return res.json({ststus:"pending"})
+})
+
+app.delete('/api/users',(req,res)=>{
+    return res.json({ststus:"pending"})
 })
 
 app.listen(8000,()=>console.log(`server started`))
