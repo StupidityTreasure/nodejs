@@ -33,12 +33,19 @@ import http from "http"
 import express from "express"
 import fs from 'fs'
 import users from './MOCK_DATA.json' assert { type: 'json' };
+import mongoose from "mongoose";
 
+import dotenv from 'dotenv'
+import cors from "cors"
+
+
+
+dotenv.config();
 
 const app =express();
 //Middlewares are functions which process request ,return responses and can also pass the request to next middleware
 //it can also be treating as plugin
-
+app.use(cors());
 app.use(express.urlencoded({extended:false}));//this middleware takes the data from form and convert it to object and pass it to next middleware or route
 app.use((req,res,next)=>{
     console.log("heelo world");
@@ -85,6 +92,33 @@ app.delete('/api/users',(req,res)=>{
 })
 
 app.listen(8000,()=>console.log(`server started`))
+
+const url=process.env.Mongodburi
+///mongoose .connection
+mongoose.connect(/**mongodb string */)
+.then(()=>console.log("mongoose connected"))
+.catch((err)=>console.log("mongo error",err))
+
+///Schema
+const userSchema=new mongoose.Schema({
+    firstName:{
+        type:String,
+        required:true,
+    },
+    email:{
+        type:String,
+        required:true,
+        unique:true
+    },
+    gender:{
+        type:String,
+        required:true
+    }
+})
+
+const User=mongoose.model("user",userSchema)
+
+
 /*
 const myserver=http.createServer(app)
 
