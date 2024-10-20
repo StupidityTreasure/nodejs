@@ -57,6 +57,8 @@ app.get('/',(req,res)=>{
     return res.send(`hello from home page`)
 })
 app.get('/api/users',(req,res)=>{
+    //headers
+    res.setHeader("X-myname","neha");//always add x- to a custom error
     return res.json(users);
 })
 app.get('/about',(req,res)=>{
