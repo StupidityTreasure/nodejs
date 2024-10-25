@@ -12,7 +12,9 @@ const PORT=8001
 connectDB()
 
 app.use(express.json())
-
+app.get('/test',(req,res)=>{
+    return res.end('<h1>hello from universwe</h1>')
+})
 
 app.use("/url",urlRoute)
 
