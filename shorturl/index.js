@@ -4,8 +4,10 @@ import dotenv from "dotenv"
 import url from "./models/url.js"
 import urlRoute from "./router/url.js"
 import connectDB from "./connect.js"
+import staticRouter from './router/staticRouter.js'
 dotenv.config() 
 const app=express()
+
 
 const PORT=8001
 
@@ -20,7 +22,7 @@ app.get('/url/test',async(req,res)=>{
 })
 
 app.use("/url",urlRoute)
-
+app.use('/',staticRouter)
 /*
 app.get('/:shortId',async(req,res)=>{
     const shortId=req.params.shortId;
