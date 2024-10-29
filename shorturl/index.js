@@ -1,4 +1,5 @@
 import express from "express"
+import path from 'path'
 import dotenv from "dotenv"
 import url from "./models/url.js"
 import urlRoute from "./router/url.js"
@@ -10,10 +11,12 @@ const PORT=8001
 
 
 connectDB()
-
+app.set("view engine","ejs")
+app.set("views",path.resolve("./views"))
 app.use(express.json())
-app.get('/test',(req,res)=>{
-    return res.end('<h1>hello from universwe</h1>')
+app.get('/url/test',async(req,res)=>{
+    
+    return res.render("home")
 })
 
 app.use("/url",urlRoute)
@@ -32,7 +35,7 @@ app.get('/:shortId',async(req,res)=>{
 })
     */
 
-app.get('/:shortId', async (req, res) => {
+app.get('/url/:shortId', async (req, res) => {
     const shortId = req.params.shortId;
 
     try {
